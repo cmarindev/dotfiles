@@ -1,0 +1,18 @@
+# Ignore everything
+*
+
+# But not these files...
+# The following line makes sure that Git still checks directories
+!*/
+!.gitignore
+!/alacritty/
+!cleanSetup.sh
+!/i3/
+!/nvim/
+!/picom/
+!/polybar/
+!README.md
+!/rofi/
+!/wallpapers/
+!/zsh/
+
