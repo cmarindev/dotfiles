@@ -10,11 +10,21 @@
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
+set $terminal alacritty
+set $browser firefox
+set $music_player spotify
 
+# Setup screen layout
+set $monitor_left "HDMI-0"
+set $monitor_right "DP-4"
+
+exec --no-startup-id ~/.screenlayout/double-monitor-horizontal.sh
 exec --no-startup-id picom
 
+exec --no-startup-id feh --bg-fill ~/Pictures/wallpapers/sports-car-mountains-retrowave-synthwave-4k.jpg
+
 # Keymaps (Run 'man xkeyboard-config' to see all the options/layouts)
-exec_always --no-startup-id setxkbmap -layout us(altgr-intl) -option caps:escape 
+exec_always --no-startup-id setxkbmap -layout us -variant altgr-intl -option caps:swapescape
 
 # Polybar
 exec_always --no-startup-id killall polybar
@@ -65,15 +75,21 @@ for_window [class="^.*"] border pixel 7
         tiling_drag modifier titlebar
 
         # start a terminal
-        bindsym $mod+Return exec alacritty
+        bindsym $mod+Return exec --no-startup-id $terminal
+
+        # start a browser
+        bindsym $mod+b exec --no-startup-id $browser
+
+        # start a music player
+        bindsym $mod+s exec --no-startup-id $music_player
 
         # kill focused window
         bindsym $mod+Shift+q kill
 
         # start dmenu (a program launcher)
-        bindsym $mod+d exec --no-startup-id dmenu_run
+        # bindsym $mod+d exec --no-startup-id dmenu_run
         # A more modern dmenu replacement is rofi:
-        # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
+        bindcode $mod+40 exec "rofi -modi drun,run -show drun"
         # There also is i3-dmenu-desktop which only displays applications shipping a
         # .desktop file. It is a wrapper around dmenu, so you need that installed.
         # bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
@@ -112,7 +128,7 @@ for_window [class="^.*"] border pixel 7
         bindsym $mod+f fullscreen toggle
 
         # change container layout (stacked, tabbed, toggle split)
-        bindsym $mod+s layout stacking
+        # bindsym $mod+s layout stacking
         bindsym $mod+w layout tabbed
         bindsym $mod+e layout toggle split
 
@@ -140,6 +156,8 @@ for_window [class="^.*"] border pixel 7
         set $ws8 "8"
         set $ws9 "9"
         set $ws10 "10"
+
+        workspace $ws1 output $monitor_right
 
         # switch to workspace
         bindsym $mod+1 workspace number $ws1
